@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:42:33 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/15 13:21:04 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/15 19:10:07 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 // Libft
 # include "./libft/include/libft.h"
+# include "./libft/include/extra.h"
 
 // Libs
 # include <fcntl.h>
@@ -42,14 +43,14 @@ typedef struct s_pipex_fds
 }	t_pipex_fds;
 
 // Donde cargar los datos una vez parseado.
-typedef struct s_cmds_data
+typedef struct s_cmd_data
 {
-	char	**cmd_paths;
-	char	**cmd_arg[2];
-}	t_cmds_data;
+	char	**path;
+	char	**args;
+}	t_cmd_data;
 
 int	check_args(int argc);
 int	check_files(char *infile, char *outfile);
-int	check_cmds(t_cmds_data *cmds);
+int	check_cmds(t_cmd_data *cmds);
 
 #endif

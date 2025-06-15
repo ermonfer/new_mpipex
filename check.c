@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 20:54:26 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/15 13:09:46 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/15 16:42:12 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_check_args(int argc);
 int		ft_check_files(char *infile, char *outfile);
-int		ft_check_cmds(t_cmds_data *cmds);
+int		ft_check_cmds(t_cmd_data *cmds);
 int		ft_free_fd_pipe(t_pipex_fds *fds, int flag);
 
 void ft_check_args(int argc)
