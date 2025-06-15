@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:39:30 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/14 22:02:21 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/15 13:40:37 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ int	execve_p(char **envp);
 int ft_waiting_childs_return(pid_t childs[2]);
 int	ft_init_pipex(t_cmds_data *cmds, int argc, char **argv, char **enpv);
 int ft_child1_exec(t_pipex_fds fds, t_cmds_data cmds);
+int	ft_open_fds(t_pipex_fds *fds, int argc, char **argv);
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_pipex_fds		fds;
+	t_pipex_fds		*fds;
 	pid_t			childs[2];
 
 	
@@ -27,11 +28,8 @@ int	main(int argc, char *argv[], char *envp[])
 	//parseo de argumentos
 	// comprobar el infile y el outfile y el número de args.
 
-	if (pipe(fds.pipe_fds[0]) == -1)
-	{
-		perror("pipe error");
-	}
 	
+	ft_open_fds()
 	childs[1] = fork();
 	if (childs[0] == -1)
 	{
@@ -82,7 +80,7 @@ int	ft_init_pipex(t_cmds_data *cmds, int argc, char **argv, char **enpv)
 }
 
 
-int	ft_open_fd(t_pipex_fds *fds, int argc, char **argv)
+int	ft_open_fds(t_pipex_fds *fds, int argc, char **argv)
 {
 	int	pipe_result;
 
@@ -91,10 +89,13 @@ int	ft_open_fd(t_pipex_fds *fds, int argc, char **argv)
 	if ()
 	pipe_result = pipe(fds->fd);
 	if (fds->in_fd < 0)
-		perror("Error opening infile fd");
+	{
+		perror("Error opening infile");
+		return (FILE_ERROR);
+	}
 	if (fds->out_fd < 0)
 	{
-		perror(argv[5]);
+		perror("Error opening outfile");
 		return (FILE_ERROR);
 	}
 	if (pipe_result == -1)

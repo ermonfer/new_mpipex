@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:42:33 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/14 21:23:22 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/15 13:21:04 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ typedef struct s_pipex_fds
 typedef struct s_cmds_data
 {
 	char	**cmd_paths;
-	char	***cmd_arg;
-	char	*cmd_1;
-	char	*cmd_2;
+	char	**cmd_arg[2];
 }	t_cmds_data;
 
 int	check_args(int argc);
