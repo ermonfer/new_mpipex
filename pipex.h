@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:42:33 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/15 19:10:07 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:32:27 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@
 # define FILE_ERROR 2
 # define PIPE_ERROR 3
 # define FORK_ERROR 4
+# define NO_PATH_VAR_FOUND -1
+
+#define EXIT_SUCCESS        0
+#define ERR_GENERIC         1
+#define ERR_CMD_NOEXEC      126
+#define ERR_CMD_NOTFOUND    127
+
+#define ERR_MALLOC          3
 
 // Structs
 typedef struct s_pipex_fds
@@ -45,7 +53,7 @@ typedef struct s_pipex_fds
 // Donde cargar los datos una vez parseado.
 typedef struct s_cmd_data
 {
-	char	**path;
+	char	*path;
 	char	**args;
 }	t_cmd_data;
 
