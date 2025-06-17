@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 13:25:44 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/16 20:25:03 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/17 20:11:53 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int ft_get_cmds_data(t_cmd_data *cmds, int argc, char **argv, char **envp)
 	int		status;
 	int		i;
 
-	if (ft_get_paths_from_envp(&paths, envp) == MALLOC_ERROR)
-		return (MALLOC_ERROR);
+	if (ft_get_paths_from_envp(&paths, envp) == ERR_MALLOC)
+		return (ERR_MALLOC);
 	i = 0;
 	while (i < argc - 3)
 	{
@@ -59,7 +59,7 @@ int ft_get_cmd_exec_path(char **paths, char *cmd_name, char **cmd_path)
 		{
 			path_exec = ft_path_append(paths[i], cmd_name);
 			if (path_exec == NULL)
-				return (MALLOC_ERROR);
+				return (ERR_MALLOC);
 			if (access(path_exec, X_OK) == 0)
 			{
 				*cmd_path = path_exec;
@@ -69,7 +69,7 @@ int ft_get_cmd_exec_path(char **paths, char *cmd_name, char **cmd_path)
 			i++;
 		}
 	}
-	return(FILE_ERROR);
+	return(ERR_CMD_NOTFOUND);
 }
 
 int	ft_get_paths_from_envp(char ***paths, char **envp)
@@ -83,7 +83,7 @@ int	ft_get_paths_from_envp(char ***paths, char **envp)
 		{
 			*paths = ft_split(envp[i] + 5, ':');
 			if (*paths == NULL)
-				return (MALLOC_ERROR);
+				return (ERR_MALLOC);
 			return (SUCCESS);
 		}
 		i++;
@@ -92,28 +92,13 @@ int	ft_get_paths_from_envp(char ***paths, char **envp)
 	return (NO_PATH_VAR_FOUND);
 }
 
-void	ft_free_cmds_data(t_cmd_data *cmds, int pos)
-{
-	int	i;
-
-	if (cmds == NULL)
-		return ;
-	i = 0;
-	while (i <= pos)
-	{
-		ft_free_split(cmds[i].args);
-		free(cmds[i].path);
-		i++;
-	}	
-}
-
 int		ft_get_cmd_args(int cmd_number, char ***args, char **argv)
 {
 	*args = ft_split(argv[cmd_number + 2], ' ');
 	if (*args == NULL)
-		return (MALLOC_ERROR);
+		return (ERR_MALLOC);
 	if ((*args)[0] == NULL)
-		return (FILE_ERROR);
+		return (ERR_CMD_NOTFOUND);
 	return (SUCCESS);
 }
 
@@ -123,10 +108,10 @@ int		ft_check_absolute_path(char *cmd_name, char **cmd_path)
 	{
 		*cmd_path = ft_strdup(cmd_name);
 		if (*cmd_path == NULL)
-			return (MALLOC_ERROR);
+			return (ERR_MALLOC);
 		return (SUCCESS);
 	}
-	return (FILE_ERROR);
+	return (ERR_CMD_NOTFOUND);
 }
 
 char	*ft_path_append(char *path, char *tail)
