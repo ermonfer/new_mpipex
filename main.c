@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:39:30 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/15 16:41:38 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/17 00:09:29 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,11 @@ int	ft_open_fds(t_pipex_fds *fds, int argc, char **argv)
 	fds->in_fd = open(argv[1], O_RDONLY);
 	fds->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fds->in_fd < 0)
-	{
 		perror("Error opening infile");
-		return (FILE_ERROR);
-	}
 	if (fds->out_fd < 0)
-	{
-		perror("Error opening outfile");
 		return (FILE_ERROR);
-	}
 	if (pipe(fds->pipe_fds) == -1)
-	{
-		perror ("Pipe failed");
 		return (PIPE_ERROR);
-	}
 	return (SUCCESS);
 }
 
