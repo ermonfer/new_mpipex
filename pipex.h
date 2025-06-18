@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:42:33 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/18 00:25:53 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:35:17 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ typedef struct s_cmd_data
 	char	**args;
 }	t_cmd_data;
 
-void	ft_print_error(char *str);
+// Macros
+# define PERMISSION_DENIED 1
+# define CMD_NOTFOUND 2
+
+void	ft_print_error(char *str, int code);
 
 #endif

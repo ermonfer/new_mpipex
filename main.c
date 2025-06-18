@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:39:30 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/17 21:06:26 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:59:42 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_child_2(t_pipex_fds *fds, t_cmd_data *cmds);
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex_fds		fds;
-	t_cmd_data		cmds[2];
 
 	ft_check_args_number(argc);
 	ft_get_cmds_data(cmds, argc, argv, envp);
