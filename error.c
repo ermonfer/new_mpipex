@@ -6,10 +6,10 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 18:47:22 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/17 19:25:13 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:26:05 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_print_errors(char *str);
+void	ft_print_error(char *str);
