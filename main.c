@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:39:30 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/19 17:23:55 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:47:41 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,11 @@ void	ft_child_1(t_pipex_fds *fds, char *infile, char *cmd_str, char  **envp)
 	close(fds->pipe_fds[0]);
 	fds->in_fd = open(infile, O_WRONLY);
 	if (fds->in_fd == -1)
-		return ;
-	if (dup2(fds->in_fd, STDIN_FILENO) == -1)
 	{
-		ft_free_fds(fds);
+		ft_print_error("open");
 		return ;
 	}
-	close(fds->in_fd);
-	if (dup2(fds->pipe_fds[1], STDOUT_FILENO) == -1)
-	{
-		ft_free_fds(fds);
-		return ;
-	}
-	close(fds->out_fd);
+	redirections(fds, fds->in_fd, fds->pipe_fds[1]);
 	ft_get_cmd_data(&cmd, cmd_str, envp);
 	execve(cmd.path, cmd.args, envp);
 	ft_print_error("execve");
@@ -96,22 +88,32 @@ void	ft_child_2(t_pipex_fds *fds, char *outfile, char *cmd_str, char  **envp)
 	close(fds->pipe_fds[1]);
 	fds->out_fd = open(outfile, O_RDONLY);
 	if (fds->out_fd == -1)
-		return ;
-	if (dup2(fds->out_fd, STDOUT_FILENO) == -1)
 	{
-		ft_free_fds(fds);
+		ft_print_error("open");
 		return ;
 	}
-	close(fds->out_fd);
-	if (dup2(fds->pipe_fds[0], STDIN_FILENO) == -1)
-	{
-		ft_free_fds(fds);
-		return ;
-	}
-	close(fds->out_fd);
+	redirections(fds, fds->pipe_fds[0], fds->out_fd);
 	ft_get_cmd_data(&cmd, cmd_str, envp);
 	execve(cmd.path, cmd.args, envp);
 	ft_print_error("execve");
 	ft_free_cmd_data(&cmd);
 	ft_free_fds(fds);
+}
+
+void	redirections(t_pipex_fds *fds, int in_fd, int out_fd)
+{
+	if (dup2(in_fd, STDIN_FILENO) == -1)
+	{
+		ft_print_error("dup2");
+		ft_free_fds(fds);
+		return ;
+	}
+	close(in_fd);
+	if (dup2(out_fd, STDOUT_FILENO) == -1)
+	{
+		ft_print_error("dup2");
+		ft_free_fds(fds);
+		return ;
+	}
+	close(out_fd);
 }
