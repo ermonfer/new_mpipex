@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 18:28:03 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/18 17:51:03 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/19 09:32:30 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free_cmd_data(t_cmd_data *cmd);
 void	ft_free_fd_pipe(t_pipex_fds *fds);
 
-void ft_free_fd_pipe(t_pipex_fds *fds)
+void ft_free_fds(t_pipex_fds *fds)
 {
 	if (fds->in_fd >= 0)
 		close(fds->in_fd);

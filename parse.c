@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 13:25:44 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/18 17:54:10 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:59:05 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 int	ft_get_cmd_data(t_cmd_data	*cmd, char *argv_str, char **envp)
 {
-	int		status;
-
 	cmd->args = ft_split(argv_str, ' ');
 	if (cmd->args == NULL)
 	{
-		ft_print_error("malloc", 0);
+		ft_print_error("malloc");
 		return (1);
 	}
 	cmd->path = ft_get_exec_path(cmd->args[0], envp);
 	if (cmd->path == NULL)
+	{
 		ft_free_split(cmd->args);
-	return (status);
+		return (1);
+	}
+	return (0);
 }
 
 char *ft_get_exec_path(char *cmd_name, char **envp)
@@ -55,7 +56,7 @@ char	**ft_get_paths_from_envp(char **envp)
 		{
 			paths = ft_split(envp[i] + 5, ':');
 			if (paths == NULL)
-				ft_print_error("pipex: malloc");
+				ft_print_error("malloc");
 			return (paths);
 		}
 		i++;
@@ -67,10 +68,8 @@ char *ft_find_exec_path(char *cmd_name, char **paths)
 {
 	int		i;
 	char	*exec_path;
-	int		permission_denied;
 
 	i = 0;
-	permission_denied = 0;
 	while (paths[i] != NULL)
 	{
 		exec_path = ft_path_append(paths[i], cmd_name);
@@ -79,15 +78,15 @@ char *ft_find_exec_path(char *cmd_name, char **paths)
 		if (access(exec_path, X_OK) == 0)
 			return (exec_path);
 		if (errno == EACCES)
-			permission_denied = 1;
+		{
+			ft_print_error(exec_path);
+			return (NULL);
+		}
 		free(exec_path);
 		i++;
 	}
-	if (permission_denied == 1)
-		ft_print_error(cmd_name, PERMISSION_DENIED);
-	else
-		ft_print_error(cmd_name, CMD_NOTFOUND);
-	return(exec_path);
+	ft_print_error(cmd_name);
+	return(NULL);
 }
 
 
@@ -98,10 +97,16 @@ char	*ft_path_append(char *path, char *tail)
 		
 	aux = ft_strjoin(path, "/");
 	if (aux == NULL && errno == ENOMEM)
+	{
 		ft_print_error("pipex: malloc");
+		return (NULL);
+	}
 	res = ft_strjoin(aux, tail);
-	if (res == NULL && errno == ENOMEM)
-		ft_print_error("pipex: malloc");
 	free(aux);
+	if (res == NULL && errno == ENOMEM)
+	{
+		ft_print_error("pipex: malloc");
+		return (NULL);
+	}
 	return (res);
 }

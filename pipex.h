@@ -6,7 +6,7 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:42:33 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/18 21:17:12 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:57:13 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ typedef struct s_cmd_data
 # define PERMISSION_DENIED 1
 # define CMD_NOTFOUND 2
 
-void	ft_print_error(char *str, int code);
+void	ft_print_error(char *str);
 void	ft_free_cmd_data(t_cmd_data *cmd);
-void	ft_free_fd_pipe(t_pipex_fds *fds);
+void	ft_free_fds(t_pipex_fds *fds);
 int		ft_get_cmd_data(t_cmd_data	*cmd, char *argv_str, char **envp);
 
 #endif
