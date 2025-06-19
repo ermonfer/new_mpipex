@@ -6,13 +6,13 @@
 /*   By: fmontero <fmontero@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:42:33 by fmontero          #+#    #+#             */
-/*   Updated: 2025/06/19 13:57:13 by fmontero         ###   ########.fr       */
+/*   Updated: 2025/06/19 19:42:04 by fmontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Global def
 #ifndef PIPEX_H
-#define PIPEX_H
+# define PIPEX_H
 
 // Libft
 # include "./libft/include/libft.h"
@@ -35,7 +35,6 @@ typedef struct s_pipex_fds
 	int	pipe_fds[2];
 }	t_pipex_fds;
 
-// Donde cargar los datos una vez parseado.
 typedef struct s_cmd_data
 {
 	char	*path;
@@ -46,9 +45,12 @@ typedef struct s_cmd_data
 # define PERMISSION_DENIED 1
 # define CMD_NOTFOUND 2
 
-void	ft_print_error(char *str);
+// parse.c
+int	ft_get_cmd_data(t_cmd_data	*cmd, char *argv_str, char **envp);
+
+// free.c
 void	ft_free_cmd_data(t_cmd_data *cmd);
 void	ft_free_fds(t_pipex_fds *fds);
-int		ft_get_cmd_data(t_cmd_data	*cmd, char *argv_str, char **envp);
+void	ft_check_args_number(int argc);
 
 #endif
